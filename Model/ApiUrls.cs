@@ -11,6 +11,9 @@ public class ApiUrls
         endpoints.Add("Parametros", baseUrl + "ParametrosWebApi/get");
 
         endpoints.Add("Login", baseUrl + "LoginWebApi");
+
+        endpoints.Add("DatosSocioEconomicos", baseUrl + "DatosSocioEconomicos");
+
     }
 
     public string GetUrl(string endpointName)
