@@ -10,44 +10,39 @@ using System.Threading.Tasks;
 namespace SiianTest.Test
 {
     [TestClass]
-    public class TestLogin
+    public  class TestGenero
     {
-        ApiUrls apiUrls = new ApiUrls();
-        Credenciales credenciales = new Credenciales();
-
         [TestMethod]
-        public async Task ObtenerToken()
+        public void Get()
         {
+
+            Credenciales credenciales = new Credenciales();
+            ApiUrls apiUrls = new ApiUrls();
+
             using (HttpClient cliente = new HttpClient())
             {
-                HttpResponseMessage mensaje = await cliente.PostAsync(apiUrls.GetUrl("Login"), new StringContent(credenciales.LoginCredentials, System.Text.Encoding.UTF8, "application/json"));
-                string data = await mensaje.Content.ReadAsStringAsync();
-                Console.WriteLine(data);
 
-            }
-        }
-
-        [TestMethod]
-        public void Post()
-        {
-            using (HttpClient cliente = new HttpClient())
-            {
                 using (HttpRequestMessage httpmensaje = new HttpRequestMessage())
                 {
-                    httpmensaje.RequestUri = new Uri(apiUrls.GetUrl("Login"));
-                    httpmensaje.Method = HttpMethod.Post;
+
+                    httpmensaje.RequestUri = new Uri(apiUrls.GetUrl("Genero"));
+                    httpmensaje.Method = HttpMethod.Get;
                     httpmensaje.Headers.Add("Accept", "application/json");
-                    string json = credenciales.LoginCredentials;
-                    httpmensaje.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+
+                    httpmensaje.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", credenciales.Token);
+
                     Task<HttpResponseMessage> httpResponse = cliente.SendAsync(httpmensaje);
+
                     using (HttpResponseMessage mensaje = httpResponse.Result)
                     {
                         Console.WriteLine(mensaje.ToString());
+
                         HttpStatusCode statusCode = mensaje.StatusCode;
+
                         HttpContent respuestaContenido = mensaje.Content;
                         Task<string> respuestaData = respuestaContenido.ReadAsStringAsync();
                         string data = respuestaData.Result;
-                        Console.WriteLine(data);
+
                         RestResponse restResponse = new RestResponse((int)statusCode, respuestaData.Result);
                         Console.WriteLine(restResponse);
                     }

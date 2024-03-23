@@ -14,7 +14,7 @@ namespace SiianTest.Test
     {
 
         [TestMethod]
-        public void GetParametros()
+        public void Get()
         {
             Credenciales credenciales = new Credenciales();
             ApiUrls apiUrls = new ApiUrls();
@@ -49,7 +49,7 @@ namespace SiianTest.Test
         }
 
         [TestMethod]
-        public void PostParametros()
+        public void Post()
         {
             Credenciales credenciales = new Credenciales();
             ApiUrls apiUrls = new ApiUrls();

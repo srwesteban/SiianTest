@@ -1,9 +1,12 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using SiianTest.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,24 +15,23 @@ namespace SiianTest.Test
     [TestClass]
     public class TestEstratos
     {
-
         [TestMethod]
         public void Get()
         {
             Credenciales credenciales = new Credenciales();
             ApiUrls apiUrls = new ApiUrls();
 
-            string clave = credenciales.ObtenerAutenficacion();
-
             using (HttpClient cliente = new HttpClient())
             {
+
                 using (HttpRequestMessage httpmensaje = new HttpRequestMessage())
                 {
+
                     httpmensaje.RequestUri = new Uri(apiUrls.GetUrl("Estrato"));
                     httpmensaje.Method = HttpMethod.Get;
                     httpmensaje.Headers.Add("Accept", "application/json");
 
-                    httpmensaje.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", clave);
+                    httpmensaje.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", credenciales.Token);
 
                     Task<HttpResponseMessage> httpResponse = cliente.SendAsync(httpmensaje);
 
@@ -84,5 +86,6 @@ namespace SiianTest.Test
                 }
             }
         }
+
     }
 }

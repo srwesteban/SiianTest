@@ -10,9 +10,8 @@ using System.Threading.Tasks;
 namespace SiianTest.Test
 {
     [TestClass]
-    public class TestDatosSocioEconomicos
+    public  class TestTipoVivienda
     {
-
         [TestMethod]
         public void Get()
         {
@@ -21,9 +20,11 @@ namespace SiianTest.Test
 
             using (HttpClient cliente = new HttpClient())
             {
+
                 using (HttpRequestMessage httpmensaje = new HttpRequestMessage())
                 {
-                    httpmensaje.RequestUri = new Uri(apiUrls.GetUrl("DatosSocioEconomicos"));
+
+                    httpmensaje.RequestUri = new Uri(apiUrls.GetUrl("TipoVivienda"));
                     httpmensaje.Method = HttpMethod.Get;
                     httpmensaje.Headers.Add("Accept", "application/json");
 
@@ -48,39 +49,5 @@ namespace SiianTest.Test
             }
         }
 
-        [TestMethod]
-        public void PostParametros()
-        {
-            Credenciales credenciales = new Credenciales();
-            ApiUrls apiUrls = new ApiUrls();
-
-            using (HttpClient cliente = new HttpClient())
-            {
-                using (HttpRequestMessage httpmensaje = new HttpRequestMessage())
-                {
-                    httpmensaje.RequestUri = new Uri(apiUrls.GetUrl("DatosSocioEconomicos"));
-                    httpmensaje.Method = HttpMethod.Post;
-                    httpmensaje.Headers.Add("Accept", "application/json");
-
-                    httpmensaje.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", credenciales.Token);
-
-                    Task<HttpResponseMessage> httpResponse = cliente.SendAsync(httpmensaje);
-
-                    using (HttpResponseMessage mensaje = httpResponse.Result)
-                    {
-                        Console.WriteLine(mensaje.ToString());
-
-                        HttpStatusCode statusCode = mensaje.StatusCode;
-
-                        HttpContent respuestaContenido = mensaje.Content;
-                        Task<string> respuestaData = respuestaContenido.ReadAsStringAsync();
-                        string data = respuestaData.Result;
-
-                        RestResponse restResponse = new RestResponse((int)statusCode, respuestaData.Result);
-                        Console.WriteLine(restResponse);
-                    }
-                }
-            }
-        }
     }
 }

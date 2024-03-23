@@ -9,8 +9,9 @@ namespace SiianTest.Model
 {
     public class Credenciales
     {
-        public string Token { get; } = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkFETUlOSVNUUkFET1IiLCJuYW1laWQiOiI4MzdmNDk4NS01NmM0LTQ5OWItYWE2Ni05MmVjZTQ0NzQzOTMiLCJuYmYiOjE3MTExMzI4NzEsImV4cCI6MTcxMTEzNDY3MSwiaWF0IjoxNzExMTMyODcxLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0IiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdCJ9.NdMpu0zQVQuysyZbNkXNIJPOh9G4LxAKlsVmPHsYqCI";
+        public string Token { get; }
 
+= "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkFETUlOSVNUUkFET1IiLCJuYW1laWQiOiI4MzdmNDk4NS01NmM0LTQ5OWItYWE2Ni05MmVjZTQ0NzQzOTMiLCJuYmYiOjE3MTExNzMxOTEsImV4cCI6MTcxMTE3NDk5MSwiaWF0IjoxNzExMTczMTkxLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0IiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdCJ9.9faXKHXTyiMPDAbbSY9h08T4pFBtWbSC-QU1W_Tt-SQ";
         public string UserName { get; } = "ADMINISTRADOR";
         public string Password { get; } = "Sii@n123*";
 
@@ -22,29 +23,17 @@ namespace SiianTest.Model
             }
         }
 
-
-
-        public string ObtenerAutenficacion()
+        public async Task<string> ObtenerToken()
         {
-            ApiUrls api = new ApiUrls();
-            string responseData = string.Empty;
+            ApiUrls apiUrls = new ApiUrls();
             using (HttpClient cliente = new HttpClient())
             {
-                using (HttpRequestMessage httpmensaje = new HttpRequestMessage())
-                {
-                    httpmensaje.RequestUri = new Uri(api.GetUrl("Login"));
-                    httpmensaje.Method = HttpMethod.Post;
-                    httpmensaje.Headers.Add("Accept", "application/json");
-                    string json = LoginCredentials;
-                    httpmensaje.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
-                    HttpResponseMessage mensaje = cliente.SendAsync(httpmensaje).Result;
-
-                    HttpStatusCode statusCode = mensaje.StatusCode;
-                    HttpContent respuestaContenido = mensaje.Content;
-                    responseData = respuestaContenido.ReadAsStringAsync().Result;
-                }
+                HttpResponseMessage mensaje = await cliente.PostAsync(apiUrls.GetUrl("Login"), new StringContent(LoginCredentials, System.Text.Encoding.UTF8, "application/json"));
+                string token = await mensaje.Content.ReadAsStringAsync();
+                return token;
             }
-            return responseData;
         }
+
+
     }
 }

@@ -12,9 +12,15 @@ public class ApiUrls
 
         endpoints.Add("Login", baseUrl + "LoginWebApi");
 
-        endpoints.Add("DatosSocioEconomicos", baseUrl + "DatosSocioEconomicos");
-
         endpoints.Add("Estrato", baseUrl + "EstratoWebApi");
+
+        endpoints.Add("NivelEducacion", baseUrl + "NivelEducacionWebApi");
+
+        endpoints.Add("TipoVivienda", baseUrl + "TipoViviendaWebApi");
+
+        endpoints.Add("EstadoCivil", baseUrl + "EstadoCivilWebApi");
+
+        endpoints.Add("Genero", baseUrl + "GeneroWebApi");
 
     }
 
