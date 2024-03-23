@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,6 +20,31 @@ namespace SiianTest.Model
             {
                 return $"{{\"UserName\":\"{UserName}\",\"PassWord\":\"{Password}\"}}";
             }
+        }
+
+
+
+        public string ObtenerAutenficacion()
+        {
+            ApiUrls api = new ApiUrls();
+            string responseData = string.Empty;
+            using (HttpClient cliente = new HttpClient())
+            {
+                using (HttpRequestMessage httpmensaje = new HttpRequestMessage())
+                {
+                    httpmensaje.RequestUri = new Uri(api.GetUrl("Login"));
+                    httpmensaje.Method = HttpMethod.Post;
+                    httpmensaje.Headers.Add("Accept", "application/json");
+                    string json = LoginCredentials;
+                    httpmensaje.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+                    HttpResponseMessage mensaje = cliente.SendAsync(httpmensaje).Result;
+
+                    HttpStatusCode statusCode = mensaje.StatusCode;
+                    HttpContent respuestaContenido = mensaje.Content;
+                    responseData = respuestaContenido.ReadAsStringAsync().Result;
+                }
+            }
+            return responseData;
         }
     }
 }

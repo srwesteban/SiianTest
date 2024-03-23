@@ -16,4 +16,7 @@
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Test\Pruebas.cs" />
+  </ItemGroup>
 </Project>

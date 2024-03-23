@@ -14,6 +14,8 @@ public class ApiUrls
 
         endpoints.Add("DatosSocioEconomicos", baseUrl + "DatosSocioEconomicos");
 
+        endpoints.Add("Estrato", baseUrl + "EstratoWebApi");
+
     }
 
     public string GetUrl(string endpointName)
