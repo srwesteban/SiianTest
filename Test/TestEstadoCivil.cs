@@ -13,22 +13,23 @@ namespace SiianTest.Test
     public class TestEstadoCivil
     {
         [TestMethod]
-        public void Get()
+        public async Task Get()
         {
             Credenciales credenciales = new Credenciales();
             ApiUrls apiUrls = new ApiUrls();
+            TestLogin t = new TestLogin();
+            string token = await t.ObtenerData();
 
             using (HttpClient cliente = new HttpClient())
             {
 
                 using (HttpRequestMessage httpmensaje = new HttpRequestMessage())
                 {
-
                     httpmensaje.RequestUri = new Uri(apiUrls.GetUrl("EstadoCivil"));
                     httpmensaje.Method = HttpMethod.Get;
                     httpmensaje.Headers.Add("Accept", "application/json");
 
-                    httpmensaje.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", credenciales.Token);
+                    httpmensaje.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
 
                     Task<HttpResponseMessage> httpResponse = cliente.SendAsync(httpmensaje);
 

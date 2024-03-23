@@ -27,6 +27,17 @@ namespace SiianTest.Test
             }
         }
 
+        public async Task<string> ObtenerData()
+        {
+            using (HttpClient cliente = new HttpClient())
+            {
+                HttpResponseMessage mensaje = await cliente.PostAsync(apiUrls.GetUrl("Login"), new StringContent(credenciales.LoginCredentials, System.Text.Encoding.UTF8, "application/json"));
+                string data = await mensaje.Content.ReadAsStringAsync();
+                data = data.Substring(1, data.Length - 2);
+                return data;
+            }
+        }
+
         [TestMethod]
         public void Post()
         {

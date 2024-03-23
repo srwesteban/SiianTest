@@ -13,11 +13,12 @@ namespace SiianTest.Test
     public  class TestGenero
     {
         [TestMethod]
-        public void Get()
+        public async Task Get()
         {
-
             Credenciales credenciales = new Credenciales();
             ApiUrls apiUrls = new ApiUrls();
+            TestLogin t = new TestLogin();
+            string token = await t.ObtenerData();
 
             using (HttpClient cliente = new HttpClient())
             {
@@ -29,7 +30,7 @@ namespace SiianTest.Test
                     httpmensaje.Method = HttpMethod.Get;
                     httpmensaje.Headers.Add("Accept", "application/json");
 
-                    httpmensaje.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", credenciales.Token);
+                    httpmensaje.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
 
                     Task<HttpResponseMessage> httpResponse = cliente.SendAsync(httpmensaje);
 
