@@ -47,40 +47,5 @@ namespace SiianTest.Test
                 }
             }
         }
-
-        [TestMethod]
-        public void Post()
-        {
-            Credenciales credenciales = new Credenciales();
-            ApiUrls apiUrls = new ApiUrls();
-
-            using (HttpClient cliente = new HttpClient())
-            {
-                using (HttpRequestMessage httpmensaje = new HttpRequestMessage())
-                {
-                    httpmensaje.RequestUri = new Uri(apiUrls.GetUrl("Parametros"));
-                    httpmensaje.Method = HttpMethod.Post;
-                    httpmensaje.Headers.Add("Accept", "application/json");
-
-                    httpmensaje.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", credenciales.Token);
-
-                    Task<HttpResponseMessage> httpResponse = cliente.SendAsync(httpmensaje);
-
-                    using (HttpResponseMessage mensaje = httpResponse.Result)
-                    {
-                        Console.WriteLine(mensaje.ToString());
-
-                        HttpStatusCode statusCode = mensaje.StatusCode;
-
-                        HttpContent respuestaContenido = mensaje.Content;
-                        Task<string> respuestaData = respuestaContenido.ReadAsStringAsync();
-                        string data = respuestaData.Result;
-
-                        RestResponse restResponse = new RestResponse((int)statusCode, respuestaData.Result);
-                        Console.WriteLine(restResponse);
-                    }
-                }
-            }
-        }
     }
 }
