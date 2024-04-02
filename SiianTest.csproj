@@ -19,4 +19,8 @@
   <ItemGroup>
     <Compile Remove="Test\Pruebas.cs" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Test\Cartera\" />
+  </ItemGroup>
 </Project>
