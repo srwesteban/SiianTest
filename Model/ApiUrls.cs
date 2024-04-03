@@ -27,13 +27,11 @@ public class ApiUrls
 
         //moneda
         endpoints.Add("MonedaWebApi", baseUrl + "MonedaWebApi");
-
         //sucursales
-
         endpoints.Add("SucursalWebApi", baseUrl + "SucursalWebApi");
         endpoints.Add("CompaniasWebApi", baseUrl + "CompaniasWebApi");
         endpoints.Add("RegionWebApi", baseUrl + "RegionWebApi");
-
+         
 
         //cartera
 
