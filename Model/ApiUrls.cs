@@ -8,52 +8,48 @@ public class ApiUrls
 
     public ApiUrls()
     {
-        endpoints.Add("Parametros", baseUrl + "ParametrosWebApi/get");
 
-        endpoints.Add("Login", baseUrl + "LoginWebApi");
+        //tablero de control
+        endpoints.Add("InformeCarteraWebApi", baseUrl + "InformeCarteraWebApi");
+        endpoints.Add("PendientesGestorWebApi", baseUrl + "PendientesGestorWebApi");
+        endpoints.Add("VistaGestionEstadoWebApi", baseUrl + "VistaGestionEstadoWebApi");
+        ////////
 
         //terceros
-
         endpoints.Add("EstratoWebApi", baseUrl + "EstratoWebApi");
-
         endpoints.Add("NivelEducacionWebApi", baseUrl + "NivelEducacionWebApi");
-
         endpoints.Add("TipoViviendaWebApi", baseUrl + "TipoViviendaWebApi");
-
         endpoints.Add("EstadoCivilWebApi", baseUrl + "EstadoCivilWebApi");
-
         endpoints.Add("GeneroWebApi", baseUrl + "GeneroWebApi");
+        //////
 
+        //generales
 
-
-
-        endpoints.Add("Cierre", baseUrl + "CierreWebApi");
-
-        endpoints.Add("VistaGestionEstadoWebApi", baseUrl + "VistaGestionEstadoWebApi");
-
-        endpoints.Add("PendientesGestorWebApi", baseUrl + "PendientesGestorWebApi");
-
-        endpoints.Add("InformeCarteraWebApi", baseUrl + "InformeCarteraWebApi");
-
+        //moneda
         endpoints.Add("MonedaWebApi", baseUrl + "MonedaWebApi");
 
-        endpoints.Add("ModuloWebApi", baseUrl + "ModuloWebApi");
-
-        endpoints.Add("RegionWebApi", baseUrl + "RegionWebApi");
+        //sucursales
 
         endpoints.Add("SucursalWebApi", baseUrl + "SucursalWebApi");
-
         endpoints.Add("CompaniasWebApi", baseUrl + "CompaniasWebApi");
+        endpoints.Add("RegionWebApi", baseUrl + "RegionWebApi");
 
 
         //cartera
 
+        //Clasificaion
         endpoints.Add("CalificacionWebApi", baseUrl + "CalificacionWebApi");
         endpoints.Add("CalificacionInternaWebApi", baseUrl + "CalificacionInternaWebApi");
+
+        //parametros centrles de riesgo
         endpoints.Add("CentralRiesgoProveedorWebApi", baseUrl + "CentralRiesgoProveedorWebApi");
         endpoints.Add("TipoIdentificacionWebApi", baseUrl + "TipoIdentificacionWebApi");
 
 
+        //otrod
+        endpoints.Add("Parametros", baseUrl + "ParametrosWebApi/get");
+        endpoints.Add("Login", baseUrl + "LoginWebApi");
+        endpoints.Add("Cierre", baseUrl + "CierreWebApi");
 
 
     }
