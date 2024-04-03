@@ -8,6 +8,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using SiianTest.Test.Login;
 
 namespace SiianTest.Test.TableroDeControl
 {

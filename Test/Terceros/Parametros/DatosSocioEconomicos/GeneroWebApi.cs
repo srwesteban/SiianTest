@@ -1,19 +1,18 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SiianTest.Model;
+using SiianTest.Test.Login;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http.Headers;
 using System.Net;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using SiianTest.Test.Login;
 
-namespace SiianTest.Test.General.Parametros.Sucursales
+namespace SiianTest.Test.Terceros.Parametros.DatosSocioEconomicos
 {
     [TestClass]
-    public class CompaniasWebApi
+    public class GeneroWebApi
     {
         [TestMethod]
         public async Task Get()
@@ -28,11 +27,12 @@ namespace SiianTest.Test.General.Parametros.Sucursales
 
                 using (HttpRequestMessage httpmensaje = new HttpRequestMessage())
                 {
-                    httpmensaje.RequestUri = new Uri(apiUrls.GetUrl("CompaniasWebApi"));
+
+                    httpmensaje.RequestUri = new Uri(apiUrls.GetUrl("GeneroWebApi"));
                     httpmensaje.Method = HttpMethod.Get;
                     httpmensaje.Headers.Add("Accept", "application/json");
 
-                    httpmensaje.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+                    httpmensaje.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
                     Task<HttpResponseMessage> httpResponse = cliente.SendAsync(httpmensaje);
 
@@ -53,9 +53,8 @@ namespace SiianTest.Test.General.Parametros.Sucursales
             }
         }
 
-
         [TestMethod]
-        public async Task Post()
+        public async Task Put()
         {
             Credenciales credenciales = new Credenciales();
             ApiUrls apiUrls = new ApiUrls();
@@ -64,16 +63,16 @@ namespace SiianTest.Test.General.Parametros.Sucursales
 
             using (HttpClient cliente = new HttpClient())
             {
-                var data = new Dictionary<string, string>//aqui cambias valores
+                var data = new Dictionary<string, string>// aqui cambias los valores de registro
                 {
-                    { "key", "0" },
-                    { "values", "{\"Nombre\":\"Post\",\"Idmonedadefecto\":1,\"Esactivo\":false,\"fechasistema\":\"2024-03-28T00:00:00\",\"Idmultilibro\":1, \"Idtercero\":1,\"Fechaactualizacion\":\"2024-03-12T00:00:00\"}" }
+                    { "key", "5" },
+                    { "values", "{\"Id\":5,\"Codigo\":\"test\",\"Nombre\":\"Exitoso\",\"Estaactivo\":true}" }
                 };
                 var content = new FormUrlEncodedContent(data);
                 var request = new HttpRequestMessage
                 {
-                    RequestUri = new Uri(apiUrls.GetUrl("CompaniasWebApi")),//aqui cambias la direccion
-                    Method = HttpMethod.Post, //cambias el metodo
+                    RequestUri = new Uri(apiUrls.GetUrl("GeneroWebApi")),//aqui cambias la direccion
+                    Method = HttpMethod.Put,
                     Content = content
                 };
                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
@@ -96,7 +95,7 @@ namespace SiianTest.Test.General.Parametros.Sucursales
         }
 
         [TestMethod]
-        public async Task Put()
+        public async Task Post()
         {
             Credenciales credenciales = new Credenciales();
             ApiUrls apiUrls = new ApiUrls();
@@ -107,15 +106,14 @@ namespace SiianTest.Test.General.Parametros.Sucursales
             {
                 var data = new Dictionary<string, string>//aqui cambias valores
                 {
-                    { "key", "3" },
-                    { "values", "{\"Usuario\":\"Put\",\"esactivo\":false,\"Nombre\":\"Put\",\"Idcompania\":1}" }
-
+                    { "key", "0" },
+                    { "values", "{\"Codigo\":\"post\",\"Nombre\":\"post\",\"Estaactivo\":true}" }
                 };
                 var content = new FormUrlEncodedContent(data);
                 var request = new HttpRequestMessage
                 {
-                    RequestUri = new Uri(apiUrls.GetUrl("CompaniasWebApi")),//aqui cambias la direccion
-                    Method = HttpMethod.Put,
+                    RequestUri = new Uri(apiUrls.GetUrl("GeneroWebApi")),//aqui cambias la direccion
+                    Method = HttpMethod.Post, //cambias el metodo
                     Content = content
                 };
                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
@@ -149,12 +147,12 @@ namespace SiianTest.Test.General.Parametros.Sucursales
             {
                 var data = new Dictionary<string, string>
                 {
-                    { "key", "5" } // escoger un id para eliminar
+                    { "key", "6" } // escoger un id para eliminar
                 };
                 var content = new FormUrlEncodedContent(data);
                 var request = new HttpRequestMessage
                 {
-                    RequestUri = new Uri(apiUrls.GetUrl("CompaniasWebApi")),//aqui cambias la direccion
+                    RequestUri = new Uri(apiUrls.GetUrl("GeneroWebApi")),//aqui cambias la direccion
                     Method = HttpMethod.Delete, //cambias el metodo
                     Content = content
                 };

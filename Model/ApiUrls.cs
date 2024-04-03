@@ -12,15 +12,20 @@ public class ApiUrls
 
         endpoints.Add("Login", baseUrl + "LoginWebApi");
 
-        endpoints.Add("Estrato", baseUrl + "EstratoWebApi");
+        //terceros
 
-        endpoints.Add("NivelEducacion", baseUrl + "NivelEducacionWebApi");
+        endpoints.Add("EstratoWebApi", baseUrl + "EstratoWebApi");
 
-        endpoints.Add("TipoVivienda", baseUrl + "TipoViviendaWebApi");
+        endpoints.Add("NivelEducacionWebApi", baseUrl + "NivelEducacionWebApi");
 
-        endpoints.Add("EstadoCivil", baseUrl + "EstadoCivilWebApi");
+        endpoints.Add("TipoViviendaWebApi", baseUrl + "TipoViviendaWebApi");
 
-        endpoints.Add("Genero", baseUrl + "GeneroWebApi");
+        endpoints.Add("EstadoCivilWebApi", baseUrl + "EstadoCivilWebApi");
+
+        endpoints.Add("GeneroWebApi", baseUrl + "GeneroWebApi");
+
+
+
 
         endpoints.Add("Cierre", baseUrl + "CierreWebApi");
 
@@ -39,6 +44,16 @@ public class ApiUrls
         endpoints.Add("SucursalWebApi", baseUrl + "SucursalWebApi");
 
         endpoints.Add("CompaniasWebApi", baseUrl + "CompaniasWebApi");
+
+
+        //cartera
+
+        endpoints.Add("CalificacionWebApi", baseUrl + "CalificacionWebApi");
+        endpoints.Add("CalificacionInternaWebApi", baseUrl + "CalificacionInternaWebApi");
+        endpoints.Add("CentralRiesgoProveedorWebApi", baseUrl + "CentralRiesgoProveedorWebApi");
+        endpoints.Add("TipoIdentificacionWebApi", baseUrl + "TipoIdentificacionWebApi");
+
+
 
 
     }

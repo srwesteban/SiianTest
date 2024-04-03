@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SiianTest.Model;
+using SiianTest.Test.Login;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,10 +9,10 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SiianTest.Test
+namespace SiianTest.Test.PruebasFuncionalidadesEspecificas
 {
     [TestClass]
-    public  class TestCierre
+    public class TestCierre
     {
         [TestMethod]
         public async Task Get()
@@ -31,7 +32,7 @@ namespace SiianTest.Test
                     httpmensaje.Method = HttpMethod.Get;
                     httpmensaje.Headers.Add("Accept", "application/json");
 
-                    httpmensaje.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+                    httpmensaje.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
                     Task<HttpResponseMessage> httpResponse = cliente.SendAsync(httpmensaje);
 
