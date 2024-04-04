@@ -42,9 +42,18 @@ public class ApiUrls
         //parametros centrles de riesgo
         endpoints.Add("CentralRiesgoProveedorWebApi", baseUrl + "CentralRiesgoProveedorWebApi");
         endpoints.Add("TipoIdentificacionWebApi", baseUrl + "TipoIdentificacionWebApi");
+        endpoints.Add("ClasificacionPrestamoWebApi", baseUrl + "ClasificacionPrestamoWebApi");
+        endpoints.Add("FrecuenciasPagoWebApi", baseUrl + "FrecuenciasPagoWebApi");
+        endpoints.Add("EstadoPrestamoWebApi", baseUrl + "EstadoPrestamoWebApi");
+        // faltan
+
+        //transacciones
+        endpoints.Add("TipoDocumentoWebApi", baseUrl + "TipoDocumentoWebApi");
 
 
-        //otrod
+
+
+        //otros
         endpoints.Add("Parametros", baseUrl + "ParametrosWebApi/get");
         endpoints.Add("Login", baseUrl + "LoginWebApi");
         endpoints.Add("Cierre", baseUrl + "CierreWebApi");
