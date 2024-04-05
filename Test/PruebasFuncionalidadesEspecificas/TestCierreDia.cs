@@ -1,161 +1,62 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SiianTest.Model;
-using SiianTest.Test.Login;
+using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SiianTest.Test.PruebasFuncionalidadesEspecificas
 {
     [TestClass]
-    public class TestCierreDia
+    public class TestLoginNavegador
     {
-        [TestMethod]
-        public async Task Get()
+        private ChromeOptions options;
+        private IWebDriver driver;
+        private readonly string baseUrl = "https://95bd-181-62-56-8.ngrok-free.app/NOM/Account/Login/";
+        private readonly string username = "ADMINISTRADOR";
+        private readonly string password = "Sii@n123*";
+
+        [TestInitialize]
+        public void Setup()
         {
-            Credenciales credenciales = new Credenciales();
-            ApiUrls apiUrls = new ApiUrls();
-            TestLogin t = new TestLogin();
-            string token = await t.ObtenerData();
-            using (HttpClient cliente = new HttpClient())
-            {
-                using (HttpRequestMessage httpmensaje = new HttpRequestMessage())
-                {
-                    httpmensaje.RequestUri = new Uri("https://95bd-181-62-56-8.ngrok-free.app/NOM/CierreDia/CierreDia");
-                    httpmensaje.Method = HttpMethod.Get;
-                    httpmensaje.Headers.Add("Accept", "application/json");
-                    httpmensaje.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
-                    Task<HttpResponseMessage> httpResponse = cliente.SendAsync(httpmensaje);
-                    using (HttpResponseMessage mensaje = httpResponse.Result)
-                    {
-                        Console.WriteLine(mensaje.ToString());
-                        HttpStatusCode statusCode = mensaje.StatusCode;
-                        HttpContent respuestaContenido = mensaje.Content;
-                        Task<string> respuestaData = respuestaContenido.ReadAsStringAsync();
-                        string data = respuestaData.Result;
-                        RestResponse restResponse = new RestResponse((int)statusCode, respuestaData.Result);
-                        Console.WriteLine(restResponse);
-                    }
-                }
-            }
-        }
-
-
-        [TestMethod]
-        public async Task Post()
-        {
-            Credenciales credenciales = new Credenciales();
-            ApiUrls apiUrls = new ApiUrls();
-            TestLogin t = new TestLogin();
-            string token = await t.ObtenerData();
-
-            using (HttpClient cliente = new HttpClient())
-            {
-                var data = new Dictionary<string, string>//aqui cambias valores
-                {
-                    { "key", "0" },
-                    { "values", "{\"Codigo\":\"Post\",\"Nombre\":\"Post\",\"Novedadexpirian\":\"0\"}"}
-                };
-                var content = new FormUrlEncodedContent(data);
-                var request = new HttpRequestMessage
-                {
-                    RequestUri = new Uri(apiUrls.GetUrl("TipoSolicitudWebApi")),//aqui cambias la direccion
-                    Method = HttpMethod.Post, //cambias el metodo
-                    Content = content
-                };
-                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
-                HttpResponseMessage response = await cliente.SendAsync(request);
-
-                using (HttpResponseMessage mensaje = response)
-                {
-                    Console.WriteLine(mensaje.ToString());
-                    HttpStatusCode statusCode = mensaje.StatusCode;
-                    HttpContent respuestaContenido = mensaje.Content;
-                    Task<string> respuestaData = respuestaContenido.ReadAsStringAsync();
-                    string responseData = respuestaData.Result;
-                    RestResponse restResponse = new RestResponse((int)statusCode, responseData);
-                    Console.WriteLine(restResponse);
-                }
-            }
+            options = new ChromeOptions();
+            options.AddArgument("--headless");
         }
 
         [TestMethod]
-        public async Task Put()
+        public void LoginTest_SuccessfulLogin()
         {
-            Credenciales credenciales = new Credenciales();
-            ApiUrls apiUrls = new ApiUrls();
-            TestLogin t = new TestLogin();
-            string token = await t.ObtenerData();
+            driver = new ChromeDriver(options);
 
-            using (HttpClient cliente = new HttpClient())
+            driver.Navigate().GoToUrl(baseUrl);
+
+            IWebElement usernameField = WaitUntilElementIsVisible(By.Name("Username"));
+            usernameField.SendKeys(username);
+
+            IWebElement passwordField = driver.FindElement(By.CssSelector("input[type='password']"));
+            passwordField.SendKeys(password);
+
+            IWebElement loginButton = driver.FindElement(By.CssSelector("input[type='submit']"));
+            loginButton.Click();
+
+            // Verificar si la página de inicio de sesión fue exitosa
+            Assert.IsTrue(driver.Url.Contains("NOM"), "Login exitoso");
+        }
+
+        [TestCleanup]
+        public void Cleanup()
+        {
+            // Cerrar el navegador
+            if (driver != null)
             {
-                var data = new Dictionary<string, string>//aqui cambias valores
-                {
-                    { "key", "11" },
-                    { "values", "{\"Codigo\":\"Post\",\"Nombre\":\"Post\",\"Novedadexpirian\":\"0\"}"}
-                };
-                var content = new FormUrlEncodedContent(data);
-                var request = new HttpRequestMessage
-                {
-                    RequestUri = new Uri(apiUrls.GetUrl("TipoSolicitudWebApi")),//aqui cambias la direccion
-                    Method = HttpMethod.Put,
-                    Content = content
-                };
-                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
-                HttpResponseMessage response = await cliente.SendAsync(request);
-
-                using (HttpResponseMessage mensaje = response)
-                {
-                    Console.WriteLine(mensaje.ToString());
-                    HttpStatusCode statusCode = mensaje.StatusCode;
-                    HttpContent respuestaContenido = mensaje.Content;
-                    Task<string> respuestaData = respuestaContenido.ReadAsStringAsync();
-                    string responseData = respuestaData.Result;
-                    RestResponse restResponse = new RestResponse((int)statusCode, responseData);
-                    Console.WriteLine(restResponse);
-                }
+                driver.Quit();
             }
         }
 
-        [TestMethod]
-        public async Task Delete()
+        // Método para esperar a que un elemento sea visible en la página
+        private IWebElement WaitUntilElementIsVisible(By locator, int timeoutInSeconds = 10)
         {
-            Credenciales credenciales = new Credenciales();
-            ApiUrls apiUrls = new ApiUrls();
-            TestLogin t = new TestLogin();
-            string token = await t.ObtenerData();
-
-            using (HttpClient cliente = new HttpClient())
-            {
-                var data = new Dictionary<string, string>
-                {
-                    { "key", "11" }, // escoger un id para eliminar
-                };
-                var content = new FormUrlEncodedContent(data);
-                var request = new HttpRequestMessage
-                {
-                    RequestUri = new Uri(apiUrls.GetUrl("TipoSolicitudWebApi")),//aqui cambias la direccion
-                    Method = HttpMethod.Delete, //cambias el metodo
-                    Content = content
-                };
-                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
-                HttpResponseMessage response = await cliente.SendAsync(request);
-
-                using (HttpResponseMessage mensaje = response)
-                {
-                    Console.WriteLine(mensaje.ToString());
-                    HttpStatusCode statusCode = mensaje.StatusCode;
-                    HttpContent respuestaContenido = mensaje.Content;
-                    Task<string> respuestaData = respuestaContenido.ReadAsStringAsync();
-                    string responseData = respuestaData.Result;
-                    RestResponse restResponse = new RestResponse((int)statusCode, responseData);
-                    Console.WriteLine(restResponse);
-                }
-            }
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeoutInSeconds));
+            return wait.Until(driver => driver.FindElement(locator));
         }
     }
 }

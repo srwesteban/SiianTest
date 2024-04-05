@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace SiianTest.Test.PruebasFuncionalidadesEspecificas
 {
     [TestClass]
-    public class TestCierre
+    public class CierreWebApi
     {
         [TestMethod]
         public async Task Get()
@@ -28,7 +28,7 @@ namespace SiianTest.Test.PruebasFuncionalidadesEspecificas
                 using (HttpRequestMessage httpmensaje = new HttpRequestMessage())
                 {
 
-                    httpmensaje.RequestUri = new Uri(apiUrls.GetUrl("Cierre"));
+                    httpmensaje.RequestUri = new Uri(apiUrls.GetUrl("CierreWebApi"));
                     httpmensaje.Method = HttpMethod.Get;
                     httpmensaje.Headers.Add("Accept", "application/json");
 

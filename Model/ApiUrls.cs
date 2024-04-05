@@ -66,7 +66,8 @@ public class ApiUrls
         //otros
         endpoints.Add("Parametros", baseUrl + "ParametrosWebApi/get");
         endpoints.Add("Login", baseUrl + "LoginWebApi");
-        endpoints.Add("Cierre", baseUrl + "CierreWebApi");
+        endpoints.Add("CierreWebApi", baseUrl + "CierreWebApi");
+        endpoints.Add("CierreDia/CierreDia", baseUrl + "CierreDia/CierreDia");
 
 
     }
