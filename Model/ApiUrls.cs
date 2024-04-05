@@ -54,6 +54,10 @@ public class ApiUrls
 
         //modificaciones
         endpoints.Add("VistaPrestamoConceptoCreditoWebApi", baseUrl + "VistaPrestamoConceptoCreditoWebApi");
+        endpoints.Add("VistaReestructuradosWebApi", baseUrl + "VistaReestructuradosWebApi");
+        endpoints.Add("VistaPrestamoCambioConceptoWebApi", baseUrl + "VistaPrestamoCambioConceptoWebApi");
+        endpoints.Add("VistaDetallePrestamoWebApi", baseUrl + "VistaDetallePrestamoWebApi");
+
 
 
 
