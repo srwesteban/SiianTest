@@ -49,6 +49,12 @@ public class ApiUrls
 
         //transacciones
         endpoints.Add("TipoDocumentoWebApi", baseUrl + "TipoDocumentoWebApi");
+        endpoints.Add("PrestamoMaestroWebApi", baseUrl + "PrestamoMaestroWebApi");
+        endpoints.Add("TipoSolicitudWebApi", baseUrl + "TipoSolicitudWebApi");
+
+        //modificaciones
+        endpoints.Add("VistaPrestamoConceptoCreditoWebApi", baseUrl + "VistaPrestamoConceptoCreditoWebApi");
+
 
 
 
